@@ -1,12 +1,23 @@
 {
   "name": "simplex-app",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "private": false,
+  "main": "public/electron.js",
+  "homepage": "./",
+  "author": {
+    "name": "Leonardo Alencar",
+    "email": "leonardoalencar.contato@gmail.com"
+  },
+  "description": "Simplex app that uses the dual-phase method of simplex to solve linear programming problems",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.3.3",
+    "electron-is-dev": "^3.0.1",
+    "electron-reload": "^2.0.0-alpha.1",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.3.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
@@ -15,7 +26,27 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "electron:package:all": "yarn build && electron-builder -c.extraMetadata.main=build/electron.js",
+    "electron:package:win": "yarn build && electron-builder --win -c.extraMetadata.main=build/electron.js --publish never",
+    "electron:publish:win": "yarn build && electron-builder --win -c.extraMetadata.main=build/electron.js --publish always",
+    "electron:package:mac": "yarn build && electron-builder -m",
+    "electron:package:linux": "yarn build && electron-builder -l"
+  },
+  "build": {
+    "appId": "com.electron.sp-simplex",
+    "productName": "SP Simplex",
+    "files": [
+      "dist/**/*",
+      "build/**/*",
+      "node_modules/**/*",
+      "package.json",
+      "public/**/*"
+    ],
+    "directories": {
+      "buildResources": "public"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +65,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^31.0.1",
+    "electron-builder": "^24.13.3"
   }
 }
